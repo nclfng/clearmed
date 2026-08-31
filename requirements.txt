@@ -1,0 +1,33 @@
+# ── Orchestration (model-agnostic) ─────────────────────────────────────
+langgraph             # state-graph orchestration: deterministic DAG + bounded loops
+langchain-core        # message / prompt primitives used by langgraph
+litellm               # one interface to every model provider (API + open weights)
+
+# ── RAG / retrieval ────────────────────────────────────────────────────
+chromadb
+# sentence-transformers   # optional offline-embeddings fallback
+# faiss-cpu               # optional offline vector index
+
+# ── Evaluation ─────────────────────────────────────────────────────────
+textstat              # Flesch-Kincaid, SMOG readability
+scikit-learn          # Cohen's kappa, agreement metrics
+
+# ── Notebooks (all EDA / calibration / ablation / analysis work) ───────
+jupyterlab
+nbstripout            # git filter: strip notebook output on commit so diffs stay reviewable
+
+# ── Data / analysis ────────────────────────────────────────────────────
+pandas
+numpy
+datasets
+openpyxl              # read the MedAESQA methods .xlsx
+matplotlib
+seaborn
+
+# ── Demo (December: HF Spaces or Cloud Run) ────────────────────────────
+gradio
+# streamlit            # alternative demo framework
+
+# ── Optional alternatives ──────────────────────────────────────────────
+# crewai               # alternative orchestration framework
+# ollama               # run open-weight models locally for the leaderboard

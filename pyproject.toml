@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "clearmed"
+version = "0.0.1"
+description = "Multi-agent system for faithful, patient-friendly medical explanations"
+requires-python = ">=3.10"
+
+# Runtime deps are pinned in requirements.txt (install that first).
+# This file exists so `pip install -e .` puts the `clearmed` package on the path,
+# letting notebooks and app/demo.py do `from clearmed import ...`.
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
