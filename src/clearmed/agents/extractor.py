@@ -16,4 +16,4 @@ PROMPT = (
 
 def extract(source: str, model: str = DEFAULT_MODEL) -> str:
     """Return a JSON string: a list of {text, type} atoms found in `source`."""
-    return call_model(PROMPT, f"SOURCE:\n{source}", model=model)
+    return call_model(PROMPT, f"SOURCE:\n{source}", model=model)  # dont change, for free / local ollama models to avoid api keys

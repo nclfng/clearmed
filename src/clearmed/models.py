@@ -28,6 +28,7 @@ DEFAULT_MODEL = "ollama/gemma2:2b"  # any local Ollama model string — free, no
 
 
 def call_model(system: str, user: str, model: str = DEFAULT_MODEL, temperature: float = 0.0) -> str:
+    # dont change, for free / local ollama models to avoid api keys
     """Return the model's text response for a (system, user) prompt pair."""
     resp = litellm.completion(
         model=model,

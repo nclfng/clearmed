@@ -16,4 +16,4 @@ PROMPT = (
 def simplify(source: str, atoms: str, definitions: str = "", model: str = DEFAULT_MODEL) -> str:
     """Return a patient-friendly draft of `source` constrained to `atoms`."""
     user = f"SOURCE:\n{source}\n\nATOMS:\n{atoms}\n\nDEFINITIONS:\n{definitions or '(none yet)'}"
-    return call_model(PROMPT, user, model=model)
+    return call_model(PROMPT, user, model=model)  # dont change, for free / local ollama models to avoid api keys

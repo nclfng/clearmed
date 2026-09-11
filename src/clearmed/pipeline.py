@@ -5,7 +5,7 @@ loop (Verifier <-> Refiner, hard cap of MAX_REFINE_PASSES).
 
     Extractor -> Simplifier -> [Verifier <-> Refiner x<=2] -> Readability
 
-Run:  python -m clearmed.pipeline   (needs an API key for whatever models.DEFAULT_MODEL points to)
+Run:  python -m clearmed.pipeline   (needs Ollama installed + running locally — see models.py; no API key)
 LangGraph docs: https://langchain-ai.github.io/langgraph/
 """
 from __future__ import annotations

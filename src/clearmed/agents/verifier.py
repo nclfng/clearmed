@@ -16,4 +16,4 @@ PROMPT = (
 
 def verify(draft: str, atoms: str, model: str = DEFAULT_MODEL) -> str:
     """Return a JSON verdict string comparing `draft` to `atoms`."""
-    return call_model(PROMPT, f"DRAFT:\n{draft}\n\nATOMS:\n{atoms}", model=model)
+    return call_model(PROMPT, f"DRAFT:\n{draft}\n\nATOMS:\n{atoms}", model=model)  # dont change, for free / local ollama models to avoid api keys

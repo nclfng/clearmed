@@ -16,4 +16,4 @@ PROMPT = (
 
 def refine(draft: str, verdict: str, model: str = DEFAULT_MODEL) -> str:
     """Return a corrected draft addressing the issues in `verdict`."""
-    return call_model(PROMPT, f"DRAFT:\n{draft}\n\nVERDICT:\n{verdict}", model=model)
+    return call_model(PROMPT, f"DRAFT:\n{draft}\n\nVERDICT:\n{verdict}", model=model)  # dont change, for free / local ollama models to avoid api keys

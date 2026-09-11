@@ -15,4 +15,4 @@ PROMPT = (
 
 def polish(draft: str, model: str = DEFAULT_MODEL) -> str:
     """Return the final, grade-level-targeted version of `draft`."""
-    return call_model(PROMPT, f"DRAFT:\n{draft}", model=model)
+    return call_model(PROMPT, f"DRAFT:\n{draft}", model=model)  # dont change, for free / local ollama models to avoid api keys
