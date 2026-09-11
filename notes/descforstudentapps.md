@@ -1,0 +1,3 @@
+ClearMed: Making Hospital Paperwork Readable
+
+Most hospital paperwork like discharge instructions and lab results is written for doctors, not patients, and it's confusing enough that people miss doses or skip follow-ups because of it. ClearMed is a small team project where each person builds one piece of a pipeline that rewrites clinical text into plain language and checks it against the original so nothing gets made up. We're exploring whether making the pipeline more complex, splitting the work across several focused steps, can actually outperform one AI doing the entire rewrite at once. You'll own a real piece of the system end to end, walk away with hands-on experience in prompting and evaluating AI, and have a concrete project you can speak to in future interviews.
