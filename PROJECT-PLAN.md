@@ -20,7 +20,7 @@ Each person owns **one agent end-to-end** (prompt, schema, tools, tests, writeup
 | _M1_ | **Extractor** — clinical "atoms" (facts + types) | **Data lead** — dataset downloads, EDA, FHIR flattener | `01_data_eda.ipynb` |
 | _M2_ | **Simplifier** — plain-language rewrite + RAG | **Retrieval lead** — the ChromaDB glossary index | `02_retrieval.ipynb` |
 | _M3_ | **Verifier** — LLM-as-judge faithfulness scoring | **Eval lead** — the shared harness + the frozen gold set | `03_verifier_calibration.ipynb` |
-| _M4_ | **Refiner** — targeted fixes, bounded loop | **Experiments lead** — leaderboard, ablations, cost/latency logging | `04_leaderboard_ablations.ipynb` |
+| _M4_ | **Refiner** — targeted fixes, bounded loop | **Experiments lead** — leaderboard, ablations, latency logging | `04_leaderboard_ablations.ipynb` |
 | _M5_ | **Readability** — grade-level + tone control | **Integration lead** — wires the pipeline together, owns the demo | `05_readability.ipynb` |
 
 `06_error_analysis.ipynb` is shared (Phase 3). Fill in real names/handles in the README team table once claimed.
@@ -42,7 +42,7 @@ From the README. Numbers are reported **only on the frozen gold set**.
 
 **Research contribution**
 - [ ] Complete ablation table — marginal contribution of each agent to faithfulness vs. readability
-- [ ] Leaderboard across ≥3 models (≥1 API + open weights): faithfulness, readability, latency, cost, openness
+- [ ] Leaderboard across ≥3 local, open-weight models (all free via Ollama — no paid API): faithfulness, readability, latency, openness
 - [ ] Error analysis: which content types hallucinate most, which agent catches them
 
 **Artifacts** (repo + notebooks land in the 6 weeks; report/demo/presentation come [afterwards](#afterwards-on-your-own-time))
@@ -60,7 +60,7 @@ From the README. Numbers are reported **only on the frozen gold set**.
 - [ ] **Every update has a visual.** A chart, a table, a screenshot, a before/after example, a trace — no walls of text. If you can't show it, you probably can't explain it yet.
 - [ ] Move your board cards; open a PR per finished chunk (small PRs > big ones).
 - [ ] Never edit the frozen gold set — propose changes, M3 versions them.
-- [ ] Log every model run (model, params, cost, latency) to the shared results sheet.
+- [ ] Log every model run (model, params, latency) to the shared results sheet. (Cost is always $0 — everything runs on free local Ollama models, no paid API.)
 - [ ] Read at least one paper related to your agent; add a 2-3 sentence takeaway to the shared reading doc (see [TEAM-NOTES.md](TEAM-NOTES.md)).
 
 ---
@@ -100,7 +100,7 @@ Goal: the five-agent LangGraph pipeline runs end-to-end and the Verifier is **ca
 - [ ] **M1:** Extractor — flesh out `agents/extractor.py`; unit-test on 10 notes
 - [ ] **M2:** Simplifier — `agents/simplifier.py` consuming `atoms`; build + populate the ChromaDB index over the MedlinePlus glossary + lay-health guidelines; wire `retrieval.retrieve()` in
 - [ ] **M3:** Verifier — `agents/verifier.py` scoring faithfulness / omission / addition / reading-level
-- [ ] **M4:** Refiner — `agents/refiner.py` ("fix only what's flagged"); add cost + latency logging to every node
+- [ ] **M4:** Refiner — `agents/refiner.py` ("fix only what's flagged"); add latency logging to every node
 - [ ] **M5:** Readability — `agents/readability.py`; assemble + smoke-test the full graph (`pipeline.py`), confirm the bounded loop stops at 2
 - [ ] **All:** first end-to-end run on 5 examples; eyeball outputs together
 
@@ -130,7 +130,7 @@ Goal: answer *which agents matter* and *where it fails*, then freeze the numbers
 - [ ] **M1 / M2 / M5:** each write 3–4 sentences interpreting your agent's ablation result — is it pulling its weight?
 
 ### Week 6 — Leaderboard + freeze  _(lighter week)_
-- [ ] **M4:** final leaderboard — faithfulness, readability, latency, cost, openness across all 3 models
+- [ ] **M4:** final leaderboard — faithfulness, readability, latency, openness across all 3 (free, local) models
 - [ ] **M3:** compute every success-criteria number on the frozen gold set; **lock them** — no more gold-set or prompt changes
 - [ ] **M1:** every notebook runs top-to-bottom from a clean checkout
 - [ ] **M2:** `data/README.md` + repo README final pass — reproducible from zero

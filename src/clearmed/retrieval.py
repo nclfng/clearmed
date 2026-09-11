@@ -3,8 +3,11 @@
 Build a ChromaDB collection over the MedlinePlus lay-language glossary + authoritative lay-health
 guidelines, then `retrieve()` plain-language definitions for the terms in a source document.
 
-Owner TODO: pick an embedding model (hosted vs. sentence-transformers), chunking strategy,
-build + persist the index, measure retrieval hit quality.
+Owner TODO: pick a chunking strategy, build + persist the index, measure retrieval hit quality.
+
+Embeddings: use a FREE, local embedding model — either ChromaDB's bundled default
+(no setup needed, runs locally) or `sentence-transformers` explicitly. Do NOT wire in a
+hosted/paid embeddings API (e.g. OpenAI embeddings) — this project spends nothing, ever.
 """
 from __future__ import annotations
 

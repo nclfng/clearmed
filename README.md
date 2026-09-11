@@ -33,7 +33,7 @@ ClearMed examines both of these issues, taking de-identified clinical text and r
 - A complete ablation table showing the marginal contribution of each agent — answers "which agents matter most for faithfulness vs. readability?"
 
 **Comparative analysis**
-- Leaderboard across **≥3 models** spanning an API model and open weights, showing faithfulness, readability, latency, cost, **and openness** tradeoffs.
+- Leaderboard across **≥3 local, open-weight models** (all free via Ollama — no paid API), showing faithfulness, readability, latency, and openness tradeoffs.
 
 **Working artifacts**
 - Public GitHub repo with reproducible code: the `clearmed` package plus one notebook per contributor.
@@ -104,10 +104,12 @@ Two decisions that will save weeks:
 
 **Recommended stack:** see the [tech-stack table](#resources-to-get-started) below. Two things to hold onto: stay vendor-neutral by routing every model through `litellm` so the same pipeline runs across the whole leaderboard, and use `langgraph` (not free-form agent loops) so the DAG and the one bounded Verifier/Refiner loop stay reproducible.
 
+> **💸 Cost policy: this project is 100% free. No API keys, no paid trial credit, no billing — for anyone, ever.** Every model call runs locally through **Ollama** (free, no signup). Do not sign up for a paid Anthropic/OpenAI/Google API account for this project, even to use free trial credit — we're not spending money or relying on time-limited trials. If your laptop can't run a local model, use a free Colab notebook running Ollama instead.
+
 **Evaluation metrics:**
 - Readability: Flesch-Kincaid Grade Level (primary), SMOG (secondary), medical-jargon density, output length, refusal rate.
 - Faithfulness: the Verifier's score **calibrated against human labels** — report agreement (accuracy and Cohen's κ) vs. MedAESQA's human annotators; track omission and addition (hallucination) separately.
-- System tradeoffs: latency, cost, and openness per model for the leaderboard.
+- System tradeoffs: latency and openness per model for the leaderboard (cost is $0 for all — everything runs on free local models).
 - Golden rule: every headline number is reported on the *frozen* gold-standard set.
 
 **Suggested per-contributor ownership** (one agent each, end-to-end):
@@ -125,19 +127,19 @@ Two decisions that will save weeks:
 ## Resources to Get Started
 **Problem space:** AHRQ and CDC "health literacy" resources (why ≤8th-grade is the target); studies on discharge-instruction readability.
 
-**Model stack:**
-- LiteLLM — one interface to every provider (model strings, keys) — https://docs.litellm.ai/docs/providers
+**Model stack — 100% free, no API keys, no billing, ever:**
+- **Ollama** — runs open-weight models locally, completely free, no signup: https://ollama.com/download
+- LiteLLM — one interface to every provider, but we point it *only* at local Ollama models: https://docs.litellm.ai/docs/providers/ollama
 - LangGraph docs & tutorials — https://langchain-ai.github.io/langgraph/
-- Pick a primary API model with a free trial tier: Anthropic (https://console.anthropic.com), OpenAI (https://platform.openai.com), or Google AI Studio (https://aistudio.google.com)
+- **Do not** sign up for Anthropic / OpenAI / Google API accounts for this project, even for free trial credit — we're not spending money or using time-limited trials. Everyone should be able to run every agent for free, indefinitely.
 
 **Recommended tech stack:**
 
 | Layer | Pick | Why |
 |---|---|---|
-| Language / env | Python 3.10+, virtualenv or Colab | Standard; Colab gives a free GPU for open-weight models |
-| Model access | `litellm` | One API for every provider — swap models without touching pipeline code |
-| Primary model | any hosted API model (Claude / GPT / Gemini) | Free trial credit; strong instruction-following for structured output |
-| Open-weight models | Llama or Gemma family on Colab / Ollama | Needed so the leaderboard spans API and open weights |
+| Language / env | Python 3.10+, virtualenv or Colab | Standard; Colab gives a free GPU if your laptop can't run a local model |
+| Model access | `litellm` pointed at `ollama/<model>` | One API shape, but always routes to your free local Ollama server — no keys |
+| Models (all 3 for the leaderboard) | small open-weight models via **Ollama** (e.g. `gemma2:2b`, `llama3.2`, `mistral`) | Free, runs on a normal laptop, no GPU strictly required; pick sizes everyone can actually run |
 | Orchestration | `langgraph` | State graph = deterministic DAG + one bounded loop, reproducible traces |
 | RAG | `chromadb` + an embedding model | Simple local vector store; `sentence-transformers` + `faiss-cpu` as an offline fallback |
 | Metrics | `textstat` (readability), `scikit-learn` (Cohen's κ) | Flesch-Kincaid / SMOG, and Verifier-vs-human agreement |
@@ -204,7 +206,7 @@ Jump to: [README.md](README.md) · [PROJECT-PLAN.md](PROJECT-PLAN.md) · [TEAM-N
 
 1. Read [TEAM-NOTES.md](TEAM-NOTES.md) first — how we work and what to get out of the quarter.
 2. Clone the repo, make a virtual environment (or use Colab), then `pip install -r requirements.txt` and `pip install -e .` (the second puts the `clearmed` package on your path).
-3. Get an API key for one hosted model (Anthropic, OpenAI, or Google AI Studio — all have a free trial tier); set it as an env var and run `python -m clearmed.pipeline` for one successful call.
+3. **Install [Ollama](https://ollama.com/download)** and pull a small local model, e.g. `ollama pull gemma2:2b`. This is completely free — no API key, no signup, no billing. **We are not using any paid API or trial credit for this project**; everyone runs models locally (or on free Colab if your laptop can't handle it). Leave Ollama running, then run `python -m clearmed.pipeline` for one successful local call.
 4. Download MedAESQA (see `data/README.md`); skim MTSamples and generate a few Synthea patients.
 5. Run `python -m clearmed.eval_harness` and skim `src/clearmed/pipeline.py` to see the pipeline shape.
 6. `nbstripout --install` in the repo so notebook diffs stay clean.

@@ -1,11 +1,15 @@
 # ── Orchestration (model-agnostic) ─────────────────────────────────────
 langgraph             # state-graph orchestration: deterministic DAG + bounded loops
 langchain-core        # message / prompt primitives used by langgraph
-litellm               # one interface to every model provider (API + open weights)
+litellm               # one interface to every model — we point it ONLY at local Ollama models (free, no API key/billing)
+
+# ── Local models (FREE — no API keys, no paid trial credits, ever) ─────
+# Install Ollama separately (not a pip package): https://ollama.com/download
+# Then `ollama pull gemma2:2b` (or another small model) and leave it running locally.
 
 # ── RAG / retrieval ────────────────────────────────────────────────────
-chromadb
-# sentence-transformers   # optional offline-embeddings fallback
+chromadb              # default embedding function is a bundled LOCAL model — free, no API key
+sentence-transformers  # use this (not a hosted embeddings API) if you want a different embedding model
 # faiss-cpu               # optional offline vector index
 
 # ── Evaluation ─────────────────────────────────────────────────────────
@@ -30,4 +34,3 @@ gradio
 
 # ── Optional alternatives ──────────────────────────────────────────────
 # crewai               # alternative orchestration framework
-# ollama               # run open-weight models locally for the leaderboard
